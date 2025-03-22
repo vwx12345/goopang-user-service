@@ -4,8 +4,8 @@ phases:
   pre_build:
     commands:
       - echo "🟡 환경 변수 설정 중..."
-      - IMAGE_TAG=latest
-      - IMAGE_URI=637423264408.dkr.ecr.ap-northeast-2.amazonaws.com/goopang-user-service:$IMAGE_TAG
+      - export IMAGE_TAG=latest
+      - export IMAGE_URI=637423264408.dkr.ecr.ap-northeast-2.amazonaws.com/goopang-user-service:$IMAGE_TAG
       - echo "🔐 Amazon ECR 로그인 중..."
       - aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 637423264408.dkr.ecr.ap-northeast-2.amazonaws.com
       - echo "✅ ECR 로그인 완료: $IMAGE_URI"
