@@ -3,22 +3,15 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - echo "🟡 환경 변수 설정 중..."
-      - IMAGE_TAG=latest
-      - IMAGE_URI=637423264408.dkr.ecr.ap-northeast-2.amazonaws.com/goopang-user-service:$IMAGE_TAG
-      - echo "🔐 Amazon ECR 로그인 중..."
+      - export IMAGE_TAG=latest
+      - export IMAGE_URI=637423264408.dkr.ecr.ap-northeast-2.amazonaws.com/goopang-user-service:$IMAGE_TAG
       - aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 637423264408.dkr.ecr.ap-northeast-2.amazonaws.com
-      - echo "✅ ECR 로그인 완료: $IMAGE_URI"
 
   build:
     commands:
-      - echo "🐳 Docker 이미지 빌드 시작..."
       - docker build -t $IMAGE_URI .
-      - echo "📤 Docker 이미지 ECR에 푸시..."
       - docker push $IMAGE_URI
-      - echo "📄 taskdef.json 수정 중..."
       - sed -i "s#<IMAGE_NAME>#$IMAGE_URI#" taskdef.json
-      - echo "✅ 치환 완료 → $IMAGE_URI"
 
 artifacts:
   files:
