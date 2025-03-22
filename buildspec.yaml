@@ -1,8 +1,13 @@
 version: 0.2
 
 phases:
+  install:
+    commands:
+      - chmod +x gradlew
+
   pre_build:
     commands:
+      - ./gradlew clean build -x test
       - export IMAGE_TAG=latest
       - export IMAGE_URI=637423264408.dkr.ecr.ap-northeast-2.amazonaws.com/goopang-user-service:$IMAGE_TAG
       - aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 637423264408.dkr.ecr.ap-northeast-2.amazonaws.com
