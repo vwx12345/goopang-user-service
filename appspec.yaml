@@ -1,0 +1,10 @@
+version: 0.0
+Resources:
+  - TargetService:
+      Type: AWS::ECS::Service
+      Properties:
+        TaskDefinition: goopang-fargate-user-service-task-definition
+        LoadBalancerInfo:
+          ContainerName: user-service
+          ContainerPort: 80
+
