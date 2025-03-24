@@ -1,4 +1,4 @@
-FROM public.ecr.aws/amazoncorretto/amazoncorretto:17-al2023-arm64
+FROM amazoncorretto:17.0.7-al2023-headless
 
 VOLUME /tmp
 
